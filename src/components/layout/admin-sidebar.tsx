@@ -1,15 +1,13 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
 
 import {
   LayoutDashboard,
-  User,
-  Wifi,
+  Users,
   CreditCard,
   MessageSquareWarning,
-  FileText,
+  HardHat,
   Bell,
   Settings,
   LogOut,
@@ -27,74 +25,66 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-const navigationItems = [
+const adminNavigation = [
   {
     title: "Dashboard",
-    url: "/dashboard",
     icon: LayoutDashboard,
   },
   {
-    title: "My Profile",
-    url: "/profile",
-    icon: User,
-  },
-  {
-    title: "Connection",
-    url: "/connection",
-    icon: Wifi,
+    title: "Users",
+    icon: Users,
   },
   {
     title: "Billing",
-    url: "/billing",
     icon: CreditCard,
   },
   {
     title: "Complaints",
-    url: "/complaints",
     icon: MessageSquareWarning,
   },
   {
-    title: "Documents",
-    url: "/documents",
-    icon: FileText,
+    title: "Technicians",
+    icon: HardHat,
   },
   {
     title: "Notices",
-    url: "/notices",
     icon: Bell,
   },
 ];
 
-export function AppSidebar({
-  ...props
-}: React.ComponentProps<typeof Sidebar>) {
+export function AdminSidebar(
+  props: React.ComponentProps<typeof Sidebar>
+) {
   return (
     <Sidebar {...props}>
       <div className="flex h-16 items-center border-b px-4">
         <div>
-          <h1 className="text-lg font-bold">Woodpecker Net</h1>
+          <h1 className="text-lg font-bold">
+            Woodpecker Net
+          </h1>
+
           <p className="text-xs text-muted-foreground">
-            ISP Management System
+            Administration
           </p>
         </div>
       </div>
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Customer Portal</SidebarGroupLabel>
+          <SidebarGroupLabel>
+            Administration
+          </SidebarGroupLabel>
 
           <SidebarGroupContent>
             <SidebarMenu>
-              {navigationItems.map((item) => {
+              {adminNavigation.map((item) => {
                 const Icon = item.icon;
 
                 return (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton tooltip={item.title}>
-                      <Link href={item.url}>
-                        <Icon />
-                        <span>{item.title}</span>
-                      </Link>
+                      <Icon />
+                      <span>{item.title}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 );
@@ -104,22 +94,19 @@ export function AppSidebar({
         </SidebarGroup>
       </SidebarContent>
 
-      {/* Footer */}
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton>
-              <Link href="/settings">
-                <Settings />
-                <span>Settings</span>
-              </Link>
+              <Settings />
+              <span>Settings</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
 
           <SidebarMenuItem>
-            <SidebarMenuButton>
-                <LogOut />
-                <span>Logout</span>
+            <SidebarMenuButton type="button">
+              <LogOut />
+              <span>Logout</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
