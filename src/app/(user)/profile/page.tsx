@@ -1,5 +1,6 @@
 import { AddressInfoCard } from "@/components/profile/address-info";
 import { ConnectionInfoCard } from "@/components/profile/connection-info";
+import { DocumentSection } from "@/components/profile/document-section";
 import { PersonalInfoCard } from "@/components/profile/personal-info";
 import { TechnicalInfoCard } from "@/components/profile/technical-info";
 import { profileData } from "@/data/profile";
@@ -33,6 +34,7 @@ export default function ProfilePage() {
 
       {/* Address */}
       <AddressInfoCard address={profileData.address} />
+      <DocumentSection/>
     </div>
   );
 }
