@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 
 export function DocumentSection() {
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
@@ -10,6 +10,9 @@ export function DocumentSection() {
   //   const [profilePreview, setProfilePreview] = useState<string | null>(null);
   const isNidImage = nidDocument?.type.startsWith("image/");
   const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
+  const profileInputRef = useRef<HTMLInputElement>(null);
+  const nidInputRef = useRef<HTMLInputElement>(null);
 
   const profilePreview = useMemo(() => {
     if (!profilePicture) {
@@ -37,7 +40,7 @@ export function DocumentSection() {
       </div>
 
       {/* Profile Picture */}
-      <div className="flex flex-1 flex-col gap-5">
+      <div className="space-x-6">
         <label
           className="text-md font-bold
         "
@@ -46,7 +49,8 @@ export function DocumentSection() {
         </label>
 
         <input
-          className=""
+          ref={profileInputRef}
+          className="hidden "
           type="file"
           accept="image/*"
           onChange={(event) => {
@@ -64,6 +68,13 @@ export function DocumentSection() {
             setProfilePicture(file);
           }}
         />
+        <button
+          type="button"
+          onClick={() => profileInputRef.current?.click()}
+          className="w-fit rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+        >
+          {profilePicture ? "Change Photo" : "Upload Photo"}
+        </button>
 
         {profilePreview && (
           <div className="mt-4">
@@ -78,19 +89,30 @@ export function DocumentSection() {
         )}
 
         {profilePicture && (
-          <p className="text-sm text-muted-foreground">
-            Selected: {profilePicture.name}
-          </p>
+          // <p className="text-sm text-muted-foreground">
+          //   Selected: {profilePicture.name}
+          // </p>
+          <button
+            type="button"
+            onClick={() => {
+              setProfilePicture(null);
+            }}
+            className="w-fit rounded-md border px-4 py-2 text-sm font-medium"
+          >
+            Remove
+          </button>
         )}
       </div>
 
       {/* NID */}
-      <div className="flex flex-1 flex-col gap-5">
+      <div className="space-x-5">
         <label className="text-md font-bold">NID Document</label>
 
         <input
+          ref={nidInputRef}
           type="file"
           accept=".pdf,image/*"
+          className="hidden"
           onChange={(event) => {
             const file = event.target.files?.[0];
 
@@ -106,15 +128,31 @@ export function DocumentSection() {
             setNidDocument(file);
           }}
         />
+        <button
+          type="button"
+          onClick={() => nidInputRef.current?.click()}
+          className="w-fit rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+        >
+          {nidDocument ? "Change Document" : "Upload NID"}
+        </button>
 
         {nidDocument && (
-          <div className="space-y-2">
-            <p className="text-muted-foreground text-sm">
+          <div className="space-x-2 flex items-center">
+            {/* <p className="text-muted-foreground text-sm">
               Selected: {nidDocument.name}
-            </p>
+            </p> */}
+            <button
+              type="button"
+              onClick={() => {
+                setNidDocument(null);
+              }}
+              className="w-fit rounded-md border px-4 py-2 text-sm font-medium"
+            >
+              Remove
+            </button>
 
             {isNidImage ? (
-              <p className="text-sm font-medium">Image document selected</p>
+              <p className="text-sm font-medium ">Image document selected</p>
             ) : (
               <p className="text-sm font-medium">PDF document selected</p>
             )}
