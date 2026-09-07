@@ -62,6 +62,7 @@ export function DocumentSection() {
 
             if (file.size > MAX_FILE_SIZE) {
               alert("Profile picture must be smaller than 5 MB.");
+              event.target.value = ""
               return;
             }
 
@@ -96,6 +97,10 @@ export function DocumentSection() {
             type="button"
             onClick={() => {
               setProfilePicture(null);
+
+              if (profileInputRef.current) {
+                profileInputRef.current.value = "";
+              }
             }}
             className="w-fit rounded-md border px-4 py-2 text-sm font-medium"
           >
@@ -122,6 +127,7 @@ export function DocumentSection() {
 
             if (file.size > MAX_FILE_SIZE) {
               alert("NID file must be smaller than 5 MB.");
+              event.target.value = ""
               return;
             }
 
@@ -145,6 +151,10 @@ export function DocumentSection() {
               type="button"
               onClick={() => {
                 setNidDocument(null);
+
+                if (nidInputRef.current) {
+                  nidInputRef.current.value = "";
+                }
               }}
               className="w-fit rounded-md border px-4 py-2 text-sm font-medium"
             >
