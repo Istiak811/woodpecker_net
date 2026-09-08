@@ -29,6 +29,8 @@ export function PaymentHistory({ payments }: PaymentHistoryProps) {
               <th className="px-5 py-3 font-medium">Method</th>
 
               <th className="px-5 py-3 font-medium">Status</th>
+
+              <th className="px-5 py-3 font-medium">Action</th>
             </tr>
           </thead>
 
@@ -57,6 +59,14 @@ export function PaymentHistory({ payments }: PaymentHistoryProps) {
                   >
                     {payment.status}
                   </Badge>
+                </td>
+                <td className="px-5 py-4 text-right">
+                  <button
+                    type="button"
+                    className="text-sm font-medium text-primary hover:underline"
+                  >
+                    View
+                  </button>
                 </td>
               </tr>
             ))}
