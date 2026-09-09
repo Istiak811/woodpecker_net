@@ -14,8 +14,8 @@ interface MakePaymentProps {
 }
 
 export function MakePayment({ amount }: MakePaymentProps) {
-  const [paymentData, setPaymentData] =
-    useState<PaymentFormData | null>(null);
+  const [paymentData, setPaymentData] = useState<PaymentFormData | null>(null);
+  const [paymentSuccessful, setPaymentSuccessful] = useState(false);
 
   const {
     register,
@@ -36,34 +36,22 @@ export function MakePayment({ amount }: MakePaymentProps) {
   return (
     <div className="rounded-xl border bg-card p-5">
       <div className="mb-5">
-        <h2 className="text-lg font-semibold">
-          Make Payment
-        </h2>
+        <h2 className="text-lg font-semibold">Make Payment</h2>
 
         <p className="text-sm text-muted-foreground">
           Pay your current internet bill.
         </p>
       </div>
 
-      <form
-        onSubmit={handleSubmit(handlePayment)}
-        className="space-y-4"
-      >
+      <form onSubmit={handleSubmit(handlePayment)} className="space-y-4">
         <div>
-          <p className="text-sm text-muted-foreground">
-            Current Bill
-          </p>
+          <p className="text-sm text-muted-foreground">Current Bill</p>
 
-          <p className="mt-1 text-2xl font-bold">
-            ৳{amount}
-          </p>
+          <p className="mt-1 text-2xl font-bold">৳{amount}</p>
         </div>
 
         <div>
-          <label
-            htmlFor="amount"
-            className="text-sm font-medium"
-          >
+          <label htmlFor="amount" className="text-sm font-medium">
             Payment Amount
           </label>
 
@@ -84,10 +72,7 @@ export function MakePayment({ amount }: MakePaymentProps) {
         </div>
 
         <div>
-          <label
-            htmlFor="paymentMethod"
-            className="text-sm font-medium"
-          >
+          <label htmlFor="paymentMethod" className="text-sm font-medium">
             Payment Method
           </label>
 
@@ -118,22 +103,16 @@ export function MakePayment({ amount }: MakePaymentProps) {
 
       {paymentData && (
         <div className="mt-4 rounded-xl border p-5">
-          <h2 className="text-lg font-semibold">
-            Payment Ready
-          </h2>
+          <h2 className="text-lg font-semibold">Payment Ready</h2>
 
           <div className="mt-4 space-y-2 text-sm">
             <p>
-              <span className="text-muted-foreground">
-                Amount:
-              </span>{" "}
-              ৳{paymentData.amount}
+              <span className="text-muted-foreground">Amount:</span> ৳
+              {paymentData.amount}
             </p>
 
             <p>
-              <span className="text-muted-foreground">
-                Method:
-              </span>{" "}
+              <span className="text-muted-foreground">Method:</span>{" "}
               {paymentData.paymentMethod}
             </p>
           </div>
@@ -142,14 +121,36 @@ export function MakePayment({ amount }: MakePaymentProps) {
             type="button"
             className="mt-4 w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
             onClick={() => {
-              console.log(
-                "Confirm payment:",
-                paymentData
-              );
+              setPaymentSuccessful(true);
             }}
           >
             Confirm Payment
           </button>
+          {paymentSuccessful && (
+            <div className="mt-4 rounded-xl border p-5">
+              <h2 className="text-lg font-semibold">Payment Successful</h2>
+
+              <p className="mt-2 text-sm text-muted-foreground">
+                Your payment has been submitted successfully.
+              </p>
+
+              <div className="mt-4 space-y-2 text-sm">
+                <p>
+                  <span className="text-muted-foreground">Amount:</span> ৳
+                  {paymentData.amount}
+                </p>
+
+                <p>
+                  <span className="text-muted-foreground">Method:</span>{" "}
+                  {paymentData.paymentMethod}
+                </p>
+
+                <p>
+                  <span className="text-muted-foreground">Status:</span> Paid
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

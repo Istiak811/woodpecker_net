@@ -10,7 +10,10 @@ export default function UserLayout({
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main className="flex min-h-screen flex-1 flex-col">{children}</main>
+
+      <main className="flex min-h-screen min-w-0 flex-1 flex-col">
+        {children}
+      </main>
     </SidebarProvider>
   );
 }
